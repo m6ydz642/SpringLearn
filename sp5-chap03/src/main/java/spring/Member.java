@@ -11,6 +11,7 @@ private String name;
 
 
 	public Member( String email, String password, LocalDateTime registerDateTime, String name) {
+		// 객체 생성하면서 매개변수를 넣을 생성자 
 	this.email = email;
 	this.password = password;
 	this.registerDateTime = registerDateTime;
