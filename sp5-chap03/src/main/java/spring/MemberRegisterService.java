@@ -8,7 +8,7 @@ public class MemberRegisterService {
 	}
 	
 	public Long regist(RegisterRequest req){
-		
+		Member member = memberDao.selectByEmail(req.getEmail());
 		return null;
 		
 	}
