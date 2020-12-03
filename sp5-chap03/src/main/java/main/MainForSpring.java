@@ -15,6 +15,7 @@ import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
+import spring.VersionPrinter;
 import spring.WrongIdPasswordException;
 
 public class MainForSpring {
@@ -45,11 +46,23 @@ public class MainForSpring {
 			else if (command.startsWith("list")) { // new 하고 명령어를 입력해야해서 공백으로 띄움
 				processListCommand();
 				continue;
+			}else if (command.equals("version")) { // new 하고 명령어를 입력해야해서 공백으로 띄움
+				processVersionCommand();
+
+				continue;
 			}
 			
 			printHelp(); // 명령어를 잘못 입력한경우
 		}
 
+	}
+
+
+
+	private static void processVersionCommand() {
+		VersionPrinter versionPrinter = ctx.getBean("versionPrinter",VersionPrinter.class);
+		versionPrinter.print();
+		
 	}
 
 
