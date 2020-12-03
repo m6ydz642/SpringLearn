@@ -11,6 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
+import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
@@ -41,9 +42,22 @@ public class MainForSpring {
 				processChangeCommand(command.split(" "));
 				continue;
 			}
+			else if (command.startsWith("list")) { // new 하고 명령어를 입력해야해서 공백으로 띄움
+				processListCommand();
+				continue;
+			}
+			
 			printHelp(); // 명령어를 잘못 입력한경우
 		}
 
+	}
+
+
+
+	private static void processListCommand() {
+		MemberListPrinter listPrinter = ctx.getBean("listPrinter",MemberListPrinter.class);
+		listPrinter.printAll();
+		
 	}
 
 
