@@ -18,8 +18,9 @@ public class AppCtx {
 	
 	
 	@Bean
-	@Qualifier("printer") // 자동 주입빈이 2개 이상일때 붙이는 어노테이션
+	@Qualifier("printer1") // 자동 주입빈이 2개 이상일때 붙이는 어노테이션
 	// MemberListPrinter클래스에 또 정의가 되어있음
+	// Qualifier로 한정자 이름 정의안하면 메서드 이름을 자동으로 읽어서 한정자로 지정해 줌
 	public MemberPrinter memberPrinter1(){
 		return new MemberPrinter();
 	}
@@ -67,6 +68,11 @@ public class AppCtx {
 	@Bean
 	public MemberInfoPrinter infoPrinter() {
 		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+		infoPrinter.setPrinter(memberPrinter2()); // 초반에 memberPrinter()은 자동주입대상이라 밑에서 뺐는데 
+												// 주석처리하고 책따라 다시 넣음
+		// 그런데 MemberInfoPrinter에서 호출하면 memberPrinter2()가 아닌 1() 이 호출되는데 
+		// 이는 세터메서드를 통해 의존을 주입해도 해당 세터 메서드에 Autowired때문에 자동주입으로 일치하는 
+		// 빈이 알아서 자동으로 넣어졌기 때문임 
 		
 		// MemberInfoPrinter에서 @Autowired사용을 했기 때문에 메서드 호출 필요없음
 	/*	infoPrinter.setMemDao(memberDao());

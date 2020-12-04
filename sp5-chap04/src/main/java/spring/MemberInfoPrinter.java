@@ -18,7 +18,6 @@ public class MemberInfoPrinter {
 	}
 	
 	@Autowired 
-	
 	// setMemDao랑 setPrinter둘다
 	// AppCtx측에서 알아서 호출됨
 
@@ -27,7 +26,7 @@ public class MemberInfoPrinter {
 	}
 	
 	@Autowired
-	@Qualifier("printer")
+	@Qualifier("printer1") // 한정자 이름을 printer1로 정의함
 	public void setPrinter(MemberPrinter printer) {
 		this.printer = printer;
 	}
