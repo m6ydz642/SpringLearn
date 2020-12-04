@@ -43,7 +43,7 @@ public class MainForSpring {
 				processChangeCommand(command.split(" "));
 				continue;
 			}
-			else if (command.startsWith("list")) { // new 하고 명령어를 입력해야해서 공백으로 띄움
+			else if (command.startsWith("list")) { 
 				processListCommand();
 				continue;
 			}else if (command.equals("version")) { // new 하고 명령어를 입력해야해서 공백으로 띄움

@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,10 +10,30 @@ import spring.MemberInfoPrinter;
 import spring.MemberListPrinter;
 import spring.MemberPrinter;
 import spring.MemberRegisterService;
+import spring.MemberSummaryPrinter;
 import spring.VersionPrinter;
 
 @Configuration
 public class AppCtx {
+	
+	
+	@Bean
+	@Qualifier("printer") // 자동 주입빈이 2개 이상일때 붙이는 어노테이션
+	// MemberListPrinter클래스에 또 정의가 되어있음
+	public MemberPrinter memberPrinter1(){
+		return new MemberPrinter();
+	}
+/*	@Bean
+	public MemberPrinter memberPrinter2(){
+		return new MemberPrinter();
+	}*/
+
+	@Bean 
+	@Qualifier("summaryPrinter")
+	public MemberSummaryPrinter memberPrinter2() {
+		return new MemberSummaryPrinter();
+	}
+	
 	
 	@Bean
 	public MemberDao memberDao(){
