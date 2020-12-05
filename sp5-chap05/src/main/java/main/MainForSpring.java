@@ -89,8 +89,12 @@ public class MainForSpring {
 		 return;
 	 }
 	 
-		MemberRegisterService regSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
+		MemberRegisterService regSvc = ctx.getBean(MemberRegisterService.class);
 		 // memberRegSvc -> AppCtx.java에 있음
+		
+		// getBean에서 "memberRegSvc", 인자는 삭제함
+		// 클래스 이름 앞부분의 소문자로 바꾼 부분을 자동으로 빈객체 이름으로 사용 함
+		// ex) memberRegisterService
 		RegisterRequest req = new RegisterRequest();
 		req.setEmail(arg[1]);
 		req.setName(arg[2]);
@@ -113,8 +117,13 @@ public class MainForSpring {
 	
 	
 	private static void processChangeCommand(String[] arg) {
-		 ChangePasswordService chamgePwdSvc = ctx.getBean("changePwdSvc", ChangePasswordService.class);
+		 ChangePasswordService chamgePwdSvc = ctx.getBean(ChangePasswordService.class); // 마찬가지로 인자 변경
 		 // changePwdSvc -> AppCtx.java에 있음
+		 
+			// getBean에서 "memberRegSvc", 인자는 삭제함
+			// 클래스 이름 앞부분의 소문자로 바꾼 부분을 자동으로 빈객체 이름으로 사용 함
+			// ex) memberRegisterService
+		 
 		 
 		if (arg.length != 4) { // 변경받는 인자가 3자리라서 배열의 길이인 4까지
 			printHelp();

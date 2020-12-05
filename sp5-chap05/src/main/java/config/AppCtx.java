@@ -2,6 +2,7 @@ package config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import spring.ChangePasswordService;
@@ -14,11 +15,19 @@ import spring.MemberSummaryPrinter;
 import spring.VersionPrinter;
 
 @Configuration
+@ComponentScan(basePackages = {"spring"} ) // 스프링폴더에 클래스들을 다 가져옴
+
 public class AppCtx {
 	
+	@Bean
+	@Qualifier("memberDao2")
+	public MemberDao memberDao2(){ // 다른 이름으로 사용해보기
+		MemberDao memberDao = new MemberDao();
+		return memberDao;
+	}
 	
 	@Bean
-	@Qualifier("printer1") // 자동 주입빈이 2개 이상일때 붙이는 어노테이션
+	@Qualifier("printer") // 자동 주입빈이 2개 이상일때 붙이는 어노테이션
 	// MemberListPrinter클래스에 또 정의가 되어있음
 	// Qualifier로 한정자 이름 정의안하면 메서드 이름을 자동으로 읽어서 한정자로 지정해 줌
 	public MemberPrinter memberPrinter1(){
@@ -36,50 +45,10 @@ public class AppCtx {
 	}
 	
 	
-	@Bean
-	public MemberDao memberDao(){
-		return new MemberDao(); // 리턴시 객체 생성?
-	}
-	
-	@Bean
-	public MemberRegisterService memberRegSvc(){
-		return new MemberRegisterService(memberDao());
-		
-	}
-	
-	@Bean
-	public ChangePasswordService changePwdSvc(){
-		ChangePasswordService pwdSvc = new ChangePasswordService();
-	//	pwdSvc.setMemberdao(memberDao()); // Auto와어드로 처리해서 메서드 호출 필요없음
-		return pwdSvc;
-	}
-	
-	@Bean
-	public MemberPrinter memberPrinter(){
-		return new MemberPrinter();
-	}
-	
-	@Bean
-	public MemberListPrinter listPrinter(){
-		// return new MemberListPrinter(memberDao(), memberPrinter());
-		return new MemberListPrinter();  // 이제 기본생성자로 호출함
-	}
-	
-	@Bean
-	public MemberInfoPrinter infoPrinter() {
-		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-		infoPrinter.setPrinter(memberPrinter2()); // 초반에 memberPrinter()은 자동주입대상이라 밑에서 뺐는데 
-												// 주석처리하고 책따라 다시 넣음
-		// 그런데 MemberInfoPrinter에서 호출하면 memberPrinter2()가 아닌 1() 이 호출되는데 
-		// 이는 세터메서드를 통해 의존을 주입해도 해당 세터 메서드에 Autowired때문에 자동주입으로 일치하는 
-		// 빈이 알아서 자동으로 넣어졌기 때문임 
-		
-		// MemberInfoPrinter에서 @Autowired사용을 했기 때문에 메서드 호출 필요없음
-	/*	infoPrinter.setMemDao(memberDao());
-		infoPrinter.setPrinter(memberPrinter());*/
-		return infoPrinter;
-		
-	}
+	/*@ComponentScan(basePackages = {"spring"} ) 으로 spring폴더에 있는 항목들을 정의? 했기 때문에 
+	 * spring 폴더에 MemberDao나 RegisterService클래스 같은 항목들은 빈으로 이전처럼 정의할 필요가 없어서 다 삭제 함
+	 * 
+	 * */
 	
 	@Bean
 	public VersionPrinter versionPrinter(){

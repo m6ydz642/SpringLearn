@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component("listPrinter") // 컴포넌트 어노테이션 설정
 public class MemberListPrinter {
 
 	private MemberDao memberDao;
