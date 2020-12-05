@@ -16,7 +16,7 @@ public class Main {
 		Client client = ctx.getBean(Client.class);
 		client.send();
 		
-		ctx.close();
+		// ctx.close();
 
 	}
 

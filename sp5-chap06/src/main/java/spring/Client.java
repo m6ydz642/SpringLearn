@@ -1,10 +1,13 @@
 package spring;
 
+
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
-import spring.Interface.InitializingBean;
 
-public class Client implements InitializingBean, DisposableBean {
+
+public class Client implements InitializingBean, DisposableBean { // 내부적으로 정의되어있는걸 상속해서 쓰면 됨
+	// 만드는거 아님 ㅋㅋ;;
 
 	private String host;
 	
