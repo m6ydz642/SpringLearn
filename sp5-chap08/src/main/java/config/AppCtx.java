@@ -15,8 +15,11 @@ public class AppCtx {
 		ds.setUrl("jdbc:mysql://192.168.0.70/spring5fs?characterEncoding=utf8");
 		ds.setUsername("spring5");
 		ds.setPassword("spring5");
-		ds.setInitialSize(2);
-		ds.setMaxActive(10);
+		ds.setInitialSize(2); // 최대 커넥션 개수
+		ds.setMaxActive(10); // 활성 가능한 최대 커넥션 개수 지정
+		ds.setTestWhileIdle(true); // 유휴 커넥션 검사
+		ds.setMinEvictableIdleTimeMillis(1000 * 60 * 3); // 최소 유휴시간 3분
+		ds.setTimeBetweenEvictionRunsMillis(1000 * 10); // 10초 주기
 		return ds;
 	}
 }
