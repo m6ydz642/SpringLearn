@@ -1,14 +1,20 @@
 package spring;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 public class MemberDao {
 	
@@ -30,16 +36,33 @@ public class MemberDao {
 			}
 			}, email);
 		
-		return null;
+		return results.isEmpty() ? null : results.get(0); // empty면 null반환
 
 	}
 	
 	public void insert(Member member){
-
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement("insert into MEMBER values(?, ?, ?, ?)", 
+						new String[] {"ID"});
+				pstmt.setString(1, member.getEmail());
+				pstmt.setString(2, member.getPassword());
+				pstmt.setString(3, member.getName());
+				pstmt.setTimestamp(4, Timestamp.valueOf(member.getRegisterDateTime() ));
+				return pstmt;
+			}
+		}, keyHolder);
+		Number keyValue = keyHolder.getKey();
+		member.setId(keyValue.longValue());
+		
 	}
 	
 	public void update(Member member){
-	
+		jdbcTemplate.update("update MEMBER set NAME = ?, PASSWORD = ? where EMAIL = ?", 
+				member.getName(), member.getPassword(), member.getEmail());
 	}
 	
 	public List<Member> selectAll() {
@@ -61,6 +84,10 @@ public class MemberDao {
 	public MemberDao(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource); // 인자 넣어서 전달
 }
+	public int count() {
+		Integer count = jdbcTemplate.queryForObject("select count(*, requiredType) from MEMBER", Integer.class);
+		return count;
+	}
 	
 	
 }
