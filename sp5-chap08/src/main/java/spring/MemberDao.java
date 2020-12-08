@@ -21,7 +21,7 @@ public class MemberDao {
 	JdbcTemplate jdbcTemplate;
 
 	public Member selectByEmail(String email) {
-		List<Member> results = jdbcTemplate.query("select * from MEMBER where EMAIL = ?", new RowMapper<Member>() {		
+		List<Member> results = jdbcTemplate.query("select * from MEMBER where EMAIL = ? ", new RowMapper<Member>() {		
 		
 
 			@Override
@@ -85,7 +85,7 @@ public class MemberDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource); // 인자 넣어서 전달
 }
 	public int count() {
-		Integer count = jdbcTemplate.queryForObject("select count(*, requiredType) from MEMBER", Integer.class);
+		Integer count = jdbcTemplate.queryForObject("select count(*) from MEMBER", Integer.class);
 		return count;
 	}
 	
