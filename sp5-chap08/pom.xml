@@ -42,8 +42,19 @@
 			<version>5.1.45</version>
 		</dependency>
 <!--************************************************************************** -->
+<!-- 로그팩 모듈 -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.7.25</version>
+	</dependency>
 
-
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>1.2.3</version>
+	</dependency>
+<!--************************************************************************** -->
 		
 	<dependency>
 			<groupId>org.aspectj</groupId>
@@ -52,6 +63,7 @@
 		</dependency>
 	</dependencies>
 
+<!--************************************************************************** -->
 
 
 
