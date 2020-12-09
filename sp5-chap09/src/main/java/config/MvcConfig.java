@@ -22,6 +22,7 @@ public class MvcConfig implements WebMvcConfigurer{ // MVC개별설정을 조정
 	public void configureViewResolvers(ViewResolverRegistry registy){
 		// JSP를 이용해서 컨트롤러의 실행 결과를 보여주기 위한 설정 추가
 		registy.jsp("/WEB-INF/view/", ".jsp");
+		System.out.println("configureViewResolvers() 경로 호출");
 	}
 	
 	

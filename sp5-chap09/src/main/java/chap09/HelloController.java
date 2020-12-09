@@ -1,4 +1,4 @@
-
+package chap09;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +25,16 @@ public class HelloController {
 	 
 	 
 	{
-		model.addAttribute("wow", "안녕 ㅎㅎ" + name); // 뷰에 전달할 데이터를 지정하기 위해 사용
-		// "wow"라는 모델 속성에 값을 설정
+		model.addAttribute("att", "안녕하세요 " + name + "님"); // 뷰에 전달할 데이터를 지정하기 위해 사용
+		// "att"라는 모델 속성에 값을 설정 // jsp로 가면 att라는 값을 ${} 틀릿기호로 값 로드함
+		System.out.println("값 리턴");
 		
-		
-		return "리턴완료"; // 컨트롤러의 처리결과를 보여줄 뷰 이름으로 "리턴완료"를 사용
+		return "wow"; // 컨트롤러의 처리결과를 보여줄 뷰 이름으로 "리턴완료"를 사용
+		/*리턴시 리턴받은값.jsp를 하기때문에 return값도 jsp파일 이름이랑 맞춰줘야 함
+		 * return값을 마음대로 "와우"로 지정할 경우 해당 경로에 와우.jsp가 있어야 함
+		 * /sp5-chap09/WEB-INF/view/와우.jsp
+		 * 
+		 * */
 		
 	}
 			
