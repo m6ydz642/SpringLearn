@@ -7,6 +7,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import spring.MemberDao;
+
 public class MemberConfig {
 	@Configuration
 	@EnableTransactionManagement // 플랫폼 트랜잭션 매니저 빈 설정
@@ -14,7 +16,7 @@ public class MemberConfig {
 	public class AppCtx {
 
 		@Bean(destroyMethod = "close")
-		public DataSource dataSource(){
+		public DataSource dataSource() {
 			DataSource ds = new DataSource();
 			ds.setDriverClassName("com.mysql.jdbc.Driver");
 			ds.setUrl("jdbc:mysql://192.168.0.70/spring5fs?characterEncoding=utf8");
@@ -27,16 +29,18 @@ public class MemberConfig {
 			ds.setTimeBetweenEvictionRunsMillis(1000 * 10); // 10초 주기
 			return ds;
 		}
-		
+
 		@Bean
 		public MemberDao memberDao() {
 			return new MemberDao(dataSource());
 		}
-		
+
 		@Bean
-		public PlatformTransactionManager transactionManager() { // 트랜잭션 매니저 인터페이스
+		public PlatformTransactionManager transactionManager() { // 트랜잭션 매니저
+																	// 인터페이스
 			DataSourceTransactionManager tm = new DataSourceTransactionManager();
 			tm.setDataSource(dataSource());
 			return tm;
 		}
+	}
 }
