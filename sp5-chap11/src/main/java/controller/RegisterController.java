@@ -18,7 +18,7 @@ public class RegisterController {
 	
 public String handleStep3(){ // 준비중
 	return null;
-		
+		// 깃허브 테스트 (설정으로 인해)
 	}
 	
 	
