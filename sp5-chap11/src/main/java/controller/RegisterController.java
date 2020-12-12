@@ -8,6 +8,7 @@ public class RegisterController {
 	
 	@RequestMapping("/register/step1")
 	public String handleStep1(){
+		System.out.println("handelStep1 호출");
 		return "register/step1";
 	}
 	

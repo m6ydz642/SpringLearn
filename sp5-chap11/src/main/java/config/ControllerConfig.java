@@ -11,6 +11,7 @@ public class ControllerConfig {
 	
 	@Bean // 빈 등록
 	public RegisterController registerController() {
+		System.out.println("ControllerConfig호출 ");
 		return new RegisterController();
 
 	}
