@@ -42,5 +42,8 @@ public class MemberConfig {
 			tm.setDataSource(dataSource());
 			return tm;
 		}
+		
+		@Bean
+		// 추가 해야 함
 	}
 }

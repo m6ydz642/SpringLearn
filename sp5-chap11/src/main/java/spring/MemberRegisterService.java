@@ -15,7 +15,7 @@ public class MemberRegisterService {
 			throw new DuplicateMemberException("dup email : " + req.getEmail() ); 
 			// 중복전용으로 만든 예외 클래스로 중복 예외를 던짐
 		}
-		Member newMember = new Member(req.getEmail(), req.getPassword(),  LocalDateTime.now(), req.getName());
+		Member newMember = new Member(req.getEmail(), req.getPassword(),  req.getName(), LocalDateTime.now());
 		// 맴버 클래스에 생성자에 인자 넣어서 전달
 		
 		memberDao.insert(newMember);
