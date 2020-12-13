@@ -11,12 +11,10 @@ import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberRegisterService;
 
+@Configuration
+@EnableTransactionManagement // 플랫폼 트랜잭션 매니저 빈 설정
+// @Tranactional사용하려면 위와같이 설정 해야함
 public class MemberConfig {
-	@Configuration
-	@EnableTransactionManagement // 플랫폼 트랜잭션 매니저 빈 설정
-	// @Tranactional사용하려면 위와같이 설정 해야함
-	public class AppCtx {
-
 		@Bean(destroyMethod = "close")
 		public DataSource dataSource() {
 			DataSource ds = new DataSource();
@@ -58,5 +56,5 @@ public class MemberConfig {
 		}
 		
 		
-	}
+	
 }
