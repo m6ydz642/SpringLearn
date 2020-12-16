@@ -9,12 +9,14 @@
     <form action="step3" method="post">
     <p>
         <label>이메일:<br>
-        <input type="text" name="email" id="email">
-        </label>
+        <input type="text" name="email" id="email" value="${registerRequest.email}">
+        </label>									<!-- 정보를 잘못 입력 했을경우를 대비해 다시
+        						뒤로 돌아갈때  불러온 값 로드, 정보가 없으면 빈값으로 대체
+        						-->
     </p>
     <p>
         <label>이름:<br>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" value="${registerRequest.name}">
         </label>
     </p>
     <p>
