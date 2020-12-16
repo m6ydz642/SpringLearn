@@ -10,8 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import spring.DuplicateMemberException;
+import spring.MemberRegisterService;
+import spring.RegisterRequest;
+
 @Controller
 public class RegisterController {
+	
+	private MemberRegisterService MemberRegisterService;
+	
+	public void setMemberRegisterService (MemberRegisterService memberRegisterService) {
+		this.MemberRegisterService = memberRegisterService;
+	}
 	
 	@RequestMapping("/register/step1")
 	public String handleStep1(){
@@ -21,6 +32,7 @@ public class RegisterController {
 	
 	@PostMapping("/register/step2")
 	public String handleStep2(@RequestParam(value="agree", defaultValue="false")
+	// value="agree"는 step1에 name값 받아 오는 거임 체크가 되어있지 않을경우는 기본으로 false를 줌
 	Boolean agreeVal, HttpServletResponse response) { // agree요청 값을 읽어와 boolean타입으로 변환해서 agreeval파라메터에 전달함
 		System.out.println("register step2 타입 결과 : " + agreeVal);
 
@@ -46,9 +58,17 @@ public class RegisterController {
 				
 }
 	
-public String handleStep3(){ // 준비중
-	return null;
-	}
+	@PostMapping("/register/step3")
+	public String handleStep3(RegisterRequest regReg) { // 준비중
+		try {
+			MemberRegisterService.regist(regReg);
+			return "register/step3";
+		} catch (DuplicateMemberException e) {
+			return "register/step2"; // 예외시 리턴, 동일한 주소를 가진 회원이 있으면
+			// 직접 만든 DuplicateMemberException을 사용
+		}
+
+	} // handleStep3
 	
 	
-}
+} // 클래스 마지막
