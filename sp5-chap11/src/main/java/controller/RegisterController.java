@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,7 +60,7 @@ public class RegisterController {
 }
 	
 	@PostMapping("/register/step3")
-	public String handleStep3(RegisterRequest regReg) { // 준비중
+	public String handleStep3(@ModelAttribute("formData") RegisterRequest regReg) { // 준비중
 		try {
 			MemberRegisterService.regist(regReg);
 			return "register/step3";
