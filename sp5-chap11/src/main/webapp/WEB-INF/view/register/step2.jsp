@@ -14,7 +14,6 @@
         <label>이메일:<br>
 <%--         <input type="text" name="email" id="email" value="${registerRequest.email}"> --%>
         	<form:input path="email"/>
-        
         </label>									<!-- 
          						value="${registerRequest.email}"
          						는 정보를 잘못 입력 했을경우를 대비해 다시	
