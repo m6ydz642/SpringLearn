@@ -26,7 +26,9 @@ public class MvcConfig implements WebMvcConfigurer{ // MVC개별설정을 조정
 		System.out.println("configureViewResolvers() 경로 호출");
 	}
 	
-	public void addViewConrollers(ViewControllerRegistry registry){
+	public void addViewControllers(ViewControllerRegistry registry){ 
+		// 별도의 메인 컨트롤러 구현 없이 메인으로 오게하는 함수 
+		System.out.println("별도의 메인 컨트롤러 구현 없이 메인으로 오게하는 함수호출");
 		registry.addViewController("/main").setViewName("main");
 	}
 	
