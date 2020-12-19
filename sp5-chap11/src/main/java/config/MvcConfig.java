@@ -3,6 +3,7 @@ package config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -25,6 +26,9 @@ public class MvcConfig implements WebMvcConfigurer{ // MVC개별설정을 조정
 		System.out.println("configureViewResolvers() 경로 호출");
 	}
 	
+	public void addViewConrollers(ViewControllerRegistry registry){
+		registry.addViewController("/main").setViewName("main");
+	}
 	
 
 
