@@ -42,6 +42,9 @@
     <input type="submit" value="가입 완료">
     </form:form>
 
+<form:form modelAttribute="loginCommand">
+
+</form:form>
 <%--
     <form action="step3" method="post">
     <p>
