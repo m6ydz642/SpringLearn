@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +65,7 @@ public class RegisterController {
 }
 	
 	@PostMapping("/register/step3")
-	public String handleStep3(@ModelAttribute("formData") RegisterRequest regReg, Errors errors) { // 준비중
+	public String handleStep3(@Valid RegisterRequest regReg, Errors errors) { // 준비중
 		new RegisterRequestValidator().validate(regReg, errors);
 		if (errors.hasErrors()) { // 에러가 발생했으면
 			return "register/step2";
