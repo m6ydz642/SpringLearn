@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,11 +64,16 @@ public class RegisterController {
 }
 	
 	@PostMapping("/register/step3")
-	public String handleStep3(@ModelAttribute("formData") RegisterRequest regReg) { // 준비중
+	public String handleStep3(@ModelAttribute("formData") RegisterRequest regReg, Errors errors) { // 준비중
+		new RegisterRequestValidator().validate(regReg, errors);
+		if (errors.hasErrors()) { // 에러가 발생했으면
+			return "register/step2";
+		}
 		try {
 			MemberRegisterService.regist(regReg);
 			return "register/step3";
 		} catch (DuplicateMemberException e) {
+			errors.rejectValue("email","duplicate");
 			return "register/step2"; // 예외시 리턴, 동일한 주소를 가진 회원이 있으면
 			// 직접 만든 DuplicateMemberException을 사용
 		}
