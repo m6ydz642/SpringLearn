@@ -46,8 +46,17 @@ public class MemberDao {
 			
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement pstmt = con.prepareStatement("insert into MEMBER values(?, ?, ?, ?)", 
-						new String[] {"ID"});
+			//	PreparedStatement pstmt = con.prepareStatement("insert into MEMBER values(?, ?, ?, ?)", 
+				/* 위 타입처럼 테이블명 지정 없이 ?, ?, ?, ?로 끝나면
+				 * email, password, name, regdate로 저장되는게 아니라 
+				 * id, email, password,name 이런식으로 밀리는거 같음 
+				 * 테이블명 정확하게 지정해서 하니 insert예외 오류 해결 
+				 * (사실 처음부터 책 그대로 했으면 될것을..........)  
+				*/
+				PreparedStatement pstmt = con.prepareStatement(
+						"insert into MEMBER (EMAIL, PASSWORD, NAME, REGDATE) " +
+						"values (?, ?, ?, ?)",
+				new String[] {"ID"});
 				pstmt.setString(1, member.getEmail());
 				pstmt.setString(2, member.getPassword());
 				pstmt.setString(3, member.getName());
