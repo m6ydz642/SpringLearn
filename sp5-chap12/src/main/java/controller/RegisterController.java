@@ -73,7 +73,7 @@ public class RegisterController {
 			MemberRegisterService.regist(regReg);
 			return "register/step3";
 		} catch (DuplicateMemberException e) {
-			errors.rejectValue("email","duplicate");
+			errors.rejectValue("email","duplicate"); // label.proerties에 들어가는 키 항목
 			return "register/step2"; // 예외시 리턴, 동일한 주소를 가진 회원이 있으면
 			// 직접 만든 DuplicateMemberException을 사용
 		}

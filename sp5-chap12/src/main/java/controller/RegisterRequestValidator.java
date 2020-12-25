@@ -28,11 +28,12 @@ public class RegisterRequestValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		RegisterRequest regReq = (RegisterRequest) target;
 		if (regReq.getEmail() == null | regReq.getEmail().trim().isEmpty() ) {
-			errors.rejectValue("email", "required");
+			errors.rejectValue("email", "required"); // label.properties랑 연동되는 항목임
+			// required가 에러키 임
 		}else{
 			Matcher matcher = pattern.matcher(regReq.getEmail());
 			if(!matcher.matches()) {
-				errors.rejectValue("email", "bad");
+				errors.rejectValue("email", "bad"); // label.properties랑 연동되는 항목임
 			}
 		}
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");

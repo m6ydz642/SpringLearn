@@ -10,6 +10,7 @@
     <title>회원정보 입력</title>
 </head>
 <body>
+<h2><spring:message code="member.info" /></h2>
     <%-- <form:form action="step3" modelAttribute="registerRequest"> --%>
     <!-- 12장 들어오면서 ModelAttribute안쓰는데 실수로 안바꾸고 있었음 -->
     <form:form action="step3" commandName="registerRequest">
@@ -17,7 +18,7 @@
     <!-- <label>이메일 <br> -->
         <label><spring:message code="email"/> <br>
 <%--         <input type="text" name="email" id="email" value="${registerRequest.email}"> --%>
-  <h2><spring:message code="member.info" /></h2>
+ <%--  <h2><spring:message code="member.info" /></h2> --%>
         	<form:input path="email"/>
         	<form:errors path="email"/>
         	
