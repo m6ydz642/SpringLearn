@@ -10,7 +10,9 @@
     <title>회원정보 입력</title>
 </head>
 <body>
-    <form:form action="step3" modelAttribute="registerRequest">
+    <%-- <form:form action="step3" modelAttribute="registerRequest"> --%>
+    <!-- 12장 들어오면서 ModelAttribute안쓰는데 실수로 안바꾸고 있었음 -->
+    <form:form action="step3" commandName="registerRequest">
     <p>
     <!-- <label>이메일 <br> -->
         <label><spring:message code="email"/> <br>
