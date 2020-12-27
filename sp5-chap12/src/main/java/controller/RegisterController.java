@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,5 +83,10 @@ public class RegisterController {
 
 	} // handleStep3
 	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder){
+		/* Validator가 커맨드 객체를 검증할지는 InitBinder()메서드가 결정한다 */
+		binder.setValidator(new RegisterRequestValidator());
+	}
 	
 } // 클래스 마지막
