@@ -65,5 +65,8 @@ private String name;
 		this.password = newPassword;
 	}
 
+	public boolean mathPassword(String password) {
+		return this.password.equals(password);
+	}
 	
 }

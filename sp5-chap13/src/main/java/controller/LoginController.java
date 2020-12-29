@@ -5,35 +5,49 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import spring.AuthInfo;
+import spring.AuthService;
+import spring.WrongIdPasswordException;
+
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 	
+	private AuthService authService;
+	
+	
+	public void setAuthService(AuthService authService) {
+		this.authService = authService;
+	}
+
+
 	@GetMapping
 	public String form(@ModelAttribute("login") LoginCommand loginCommand) {
 		System.out.println("loginController Form호출");
 		return "login/loginForm";
 	}
-	
-	/*@GetMapping("/login")
-	public String form(Model model) {
-		System.out.println("LoginCommand 폼 호출");
-		List<String> loginTypes = new ArrayList<>();
-		loginTypes.add("일반회원");
-		loginTypes.add("기업회원");
-		loginTypes.add("헤드헌터 회원");
-		model.addAttribute("loginTypes", loginTypes);
-		return "login/form";
+
+@PostMapping
+public String submit(LoginCommand loginCommand, Errors errors) {
+	new LoginCommandValidator().validate(loginCommand, errors);
+	if (errors.hasErrors()) {
+		return "login/loginForm";
 	}
-	*/
-	
-/*	@PostMapping
-	public String form(@ModelAttribute("login") LoginCommand loginCommand) {
+	try {
+		AuthInfo autoInfo = authService.authenticate(loginCommand.getEmail(), loginCommand.getPassword());
 		
-	}*/
+		// TODO 세션에 authinfo 저장해야 함
+		return "login/loginSuccess";
+	} catch (WrongIdPasswordException e) {
+		errors.reject("idPasswordNotMatching");
+		return "loign/loginForm";
+		}
+	}
+
 }
