@@ -19,6 +19,8 @@ public class ChangePwdController {
 	
 	private ChangePasswordService changePasswordService;
 
+	
+	
 	public void setChangePasswordService(ChangePasswordService changePasswordService) {
 		this.changePasswordService = changePasswordService;
 	}
