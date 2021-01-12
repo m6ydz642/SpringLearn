@@ -35,9 +35,13 @@ public class ChangePwdController {
 		if (errors.hasErrors()) {
 			return "edit/changePwdForm";
 		}
-		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo"); // 세션 값
 		try {
 			changePasswordService.changePassword(authInfo.getEmail(), pwdCmd.getCurrentPassword(), pwdCmd.getNewPassword());
+			
+			if (authInfo == null) { // 로그인 정보 없으면 로그인 페이지로 이동
+				return "redirect:/login";
+			}
 		} catch (WrongIdPasswordException e) {
 			errors.rejectValue("currentPssword", "notMatching");
 			return "edit/changePwdForm";
