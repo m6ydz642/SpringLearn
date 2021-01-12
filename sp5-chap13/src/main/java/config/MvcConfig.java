@@ -4,11 +4,15 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import Interceptor.AuthCheckInterceptor;
 
 
 @Configuration
@@ -16,6 +20,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class MvcConfig implements WebMvcConfigurer{ // MVC개별설정을 조정할 때 사용
 	
+	@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(authCheckInterceptor());
+			WebMvcConfigurer.super.addInterceptors(registry);
+		}
+	
+	@Bean
+	private HandlerInterceptor authCheckInterceptor() {
+	return new AuthCheckInterceptor();
+}
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
 		//  디스패쳐서블릿의 매핑 경로를 /로 주었을 때, JSP/HTML/CSS등을 올바르게 처리하기 위한 설정
